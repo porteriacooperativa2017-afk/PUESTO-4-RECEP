@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>QR-U RECEPCIÓN</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+</head>
+<body>
+
+    <div class="app-container">
+        <header class="main-header">
+            <img src="logoo.jpg.jpeg" alt="Logo" class="logo-app">
+            <div id="indicador-nave">NAVE 1: COFARMEN</div>
+        </header>
+
+        <section id="vista-nave1" class="seccion-app">
+            <div class="card">
+                <h3>1. Identificación Nave 1</h3>
+                <button onclick="encenderEscaner('reader1')" class="btn-scan">📷 ESCANEAR QR / DNI</button>
+                <div id="reader1" style="width: 100%;"></div>
+                
+                <input type="text" id="chofer1" placeholder="Nombre Chofer *" class="input-req">
+                <input type="text" id="dni1" placeholder="DNI Chofer *" class="input-req">
+                
+                <select id="transporte1" class="input-req" onchange="verificarOtro(1, 'transporte')">
+                    <option value="">Seleccione Transporte *</option>
+                    <option value="ANDREANI">ANDREANI</option>
+                    <option value="OCASA">OCASA</option>
+                    <option value="CRUZ DEL SUR">CRUZ DEL SUR</option>
+                    <option value="CIUDADELA">CIUDADELA</option>
+                    <option value="DISSAN">DISSAN</option>
+                    <option value="DT LOGÍSTICA">DT LOGÍSTICA</option>
+                    <option value="ETHICUS">ETHICUS</option>
+                    <option value="FRADAOS">FRADAOS</option>
+                    <option value="OCA">OCA</option>
+                    <option value="SIMARG">SIMARG</option>
+                    <option value="LOGIN">LOGIN</option>
+                    <option value="SUIZO ARG">SUIZO ARG</option>
+                    <option value="TRANSBAN">TRANSBAN</option>
+                    <option value="EXPRESO MAIPU">EXPRESO MAIPU</option>
+                    <option value="CAMIONERA MENDOCINA">CAMIONERA MENDOCINA</option>
+                    <option value="EXPRESO MALARGÜE">EXPRESO MALARGÜE</option>
+                    <option value="EXPRESO LUJAN">EXPRESO LUJAN</option>
+                    <option value="ENCARGO">ENCARGO</option>
+                    <option value="UNITRANS">UNITRANS</option>
+                    <option value="OBBIS">OBBIS</option>
+                    <option value="DIESPEC">DIESPEC</option>
+                    <option value="MAIL EXPRES">MAIL EXPRES</option>
+                    <option value="CUYOMED">CUYOMED</option>
+                    <option value="MORRESSI">MORRESSI</option>
+                    <option value="DROGUERÍA ANAHÍ">DROGUERÍA ANAHÍ</option>
+                    <option value="CEVERINO">CEVERINO</option>
+                    <option value="OTRO">-- OTRO (Escribir manual) --</option>
+                </select>
+                <input type="text" id="otro_transporte1" placeholder="Transporte manual..." style="display:none;" class="input-otro">
+
+                <select id="guardia1" class="input-req" onchange="verificarOtro(1, 'guardia')">
+                    <option value="">Guardia de turno *</option>
+                    <option value="PASTRAN CARLOS">PASTRAN CARLOS</option>
+                    <option value="VIZCAINO OMAR">VIZCAINO OMAR</option>
+                    <option value="JAKOWIUK ROXANA">JAKOWIUK ROXANA</option>
+                    <option value="CARDONE IVAN">CARDONE IVAN</option>
+                    <option value="LUCERO RODOLFO">LUCERO RODOLFO</option>
+                    <option value="FISCHER NOELIA">FISCHER NOELIA</option>
+                    <option value="VILDOZA ROMINA">VILDOZA ROMINA</option>
+                    <option value="MARIN ALEJANDRO">MARIN ALEJANDRO</option>
+                    <option value="BURGOA GUILLERMO">BURGOA GUILLERMO</option>
+                    <option value="OLIVARES DIEGO">OLIVARES DIEGO</option>
+                    <option value="NEIRA JUAN CARLOS">NEIRA JUAN CARLOS</option>
+                    <option value="OTRO">-- OTRO (Escribir manual) --</option>
+                </select>
+                <input type="text" id="otro_guardia1" placeholder="Guardia manual..." style="display:none;" class="input-otro">
+            </div>
+
+            <div class="card">
+                <h3>2. Calidad y Recepción</h3>
+                <label class="item-check">Limpieza de Unidad <input type="checkbox" id="limpieza1"></label>
+                <label class="item-check">Cumple horario del turno <input type="checkbox" id="horario1"></label>
+                <label class="item-check">Carga Cerrada <input type="checkbox" id="cerrada1"></label>
+                <label class="item-check">¿Productos estibados sobre pallets? <input type="checkbox" id="pallets1"></label>
+                
+                <select id="estado1" class="input-req" style="margin-top:15px;">
+                    <option value="">¿Se recibió mercadería? *</option>
+                    <option value="RECIBIDO TOTAL">RECIBIDO TOTAL</option>
+                    <option value="RECIBIDO PARCIAL">RECIBIDO PARCIAL</option>
+                    <option value="RECHAZADO">RECHAZADO</option>
+                </select>
+            </div>
+
+            <div class="card">
+                <h3>3. Novedades y Foto</h3>
+                <input type="file" id="foto1" accept="image/*" capture="camera" style="display:none" onchange="previewFoto(1)">
+                <button type="button" onclick="document.getElementById('foto1').click()" class="btn-foto">📸 FOTO NOVEDAD</button>
+                <img id="img-preview1" class="preview-img" style="display:none;">
+                <textarea id="obs1" placeholder="Observaciones..."></textarea>
+            </div>
+
+            <div class="card">
+                <h3>4. Firma *</h3>
+                <canvas id="canvas-firma1" class="cuadro-firma"></canvas>
+                <button onclick="limpiarFirma(1)" class="btn-borrar">Limpiar Firma</button>
+            </div>
+            <button onclick="enviarDatos(1)" class="btn-guardar">GUARDAR NAVE 1</button>
+        </section>
+
+        <section id="vista-nave2" class="seccion-app" style="display:none;">
+            <div class="card">
+                <h3>1. Identificación Nave 2</h3>
+                <button onclick="encenderEscaner('reader2')" class="btn-scan">📷 ESCANEAR QR / DNI</button>
+                <div id="reader2" style="width: 100%;"></div>
+                
+                <input type="text" id="chofer2" placeholder="Nombre Chofer *" class="input-req">
+                <input type="text" id="dni2" placeholder="DNI Chofer *" class="input-req">
+                
+                <select id="transporte2" class="input-req" onchange="verificarOtro(2, 'transporte')">
+                    <option value="">Seleccione Transporte *</option>
+                    <option value="ANDREANI">ANDREANI</option>
+                    <option value="OCASA">OCASA</option>
+                    <option value="CRUZ DEL SUR">CRUZ DEL SUR</option>
+                    <option value="CIUDADELA">CIUDADELA</option>
+                    <option value="DISSAN">DISSAN</option>
+                    <option value="DT LOGÍSTICA">DT LOGÍSTICA</option>
+                    <option value="ETHICUS">ETHICUS</option>
+                    <option value="FRADAOS">FRADAOS</option>
+                    <option value="OCA">OCA</option>
+                    <option value="SIMARG">SIMARG</option>
+                    <option value="LOGIN">LOGIN</option>
+                    <option value="SUIZO ARG">SUIZO ARG</option>
+                    <option value="TRANSBAN">TRANSBAN</option>
+                    <option value="EXPRESO MAIPU">EXPRESO MAIPU</option>
+                    <option value="CAMIONERA MENDOCINA">CAMIONERA MENDOCINA</option>
+                    <option value="EXPRESO MALARGÜE">EXPRESO MALARGÜE</option>
+                    <option value="EXPRESO LUJAN">EXPRESO LUJAN</option>
+                    <option value="ENCARGO">ENCARGO</option>
+                    <option value="UNITRANS">UNITRANS</option>
+                    <option value="OBBIS">OBBIS</option>
+                    <option value="DIESPEC">DIESPEC</option>
+                    <option value="MAIL EXPRES">MAIL EXPRES</option>
+                    <option value="CUYOMED">CUYOMED</option>
+                    <option value="MORRESSI">MORRESSI</option>
+                    <option value="DROGUERÍA ANAHÍ">DROGUERÍA ANAHÍ</option>
+                    <option value="CEVERINO">CEVERINO</option>
+                    <option value="OTRO">-- OTRO (Escribir manual) --</option>
+                </select>
+                <input type="text" id="otro_transporte2" placeholder="Transporte manual..." style="display:none;" class="input-otro">
+
+                <select id="guardia2" class="input-req" onchange="verificarOtro(2, 'guardia')">
+                    <option value="">Guardia de turno *</option>
+                    <option value="PASTRAN CARLOS">PASTRAN CARLOS</option>
+                    <option value="VIZCAINO OMAR">VIZCAINO OMAR</option>
+                    <option value="JAKOWIUK ROXANA">JAKOWIUK ROXANA</option>
+                    <option value="CARDONE IVAN">CARDONE IVAN</option>
+                    <option value="LUCERO RODOLFO">LUCERO RODOLFO</option>
+                    <option value="FISCHER NOELIA">FISCHER NOELIA</option>
+                    <option value="VILDOZA ROMINA">VILDOZA ROMINA</option>
+                    <option value="MARIN ALEJANDRO">MARIN ALEJANDRO</option>
+                    <option value="BURGOA GUILLERMO">BURGOA GUILLERMO</option>
+                    <option value="OLIVARES DIEGO">OLIVARES DIEGO</option>
+                    <option value="NEIRA JUAN CARLOS">NEIRA JUAN CARLOS</option>
+                    <option value="OTRO">-- OTRO (Escribir manual) --</option>
+                </select>
+                <input type="text" id="otro_guardia2" placeholder="Guardia manual..." style="display:none;" class="input-otro">
+            </div>
+
+            <div class="card">
+                <h3>2. Calidad y Recepción</h3>
+                <label class="item-check">Limpieza de Unidad <input type="checkbox" id="limpieza2"></label>
+                <label class="item-check">Cumple horario del turno <input type="checkbox" id="horario2"></label>
+                <label class="item-check">Carga Cerrada <input type="checkbox" id="cerrada2"></label>
+                <label class="item-check">¿Productos estibados sobre pallets? <input type="checkbox" id="pallets2"></label>
+                
+                <select id="estado2" class="input-req" style="margin-top:15px;">
+                    <option value="">¿Se recibió mercadería? *</option>
+                    <option value="RECIBIDO TOTAL">RECIBIDO TOTAL</option>
+                    <option value="RECIBIDO PARCIAL">RECIBIDO PARCIAL</option>
+                    <option value="RECHAZADO">RECHAZADO</option>
+                </select>
+            </div>
+
+            <div class="card">
+                <h3>3. Novedades y Foto</h3>
+                <input type="file" id="foto2" accept="image/*" capture="camera" style="display:none" onchange="previewFoto(2)">
+                <button type="button" onclick="document.getElementById('foto2').click()" class="btn-foto">📸 FOTO NOVEDAD</button>
+                <img id="img-preview2" class="preview-img" style="display:none;">
+                <textarea id="obs2" placeholder="Observaciones..."></textarea>
+            </div>
+
+            <div class="card">
+                <h3>4. Firma *</h3>
+                <canvas id="canvas-firma2" class="cuadro-firma"></canvas>
+                <button onclick="limpiarFirma(2)" class="btn-borrar">Limpiar Firma</button>
+            </div>
+            <button onclick="enviarDatos(2)" class="btn-guardar">GUARDAR NAVE 2</button>
+        </section>
+    </div>
+
+    <nav class="tab-bar">
+        <div class="tab-item active" onclick="mostrarNave(1)" id="tab1"><span>NAVE 1</span></div>
+        <div class="tab-item" onclick="mostrarNave(2)" id="tab2"><span>NAVE 2</span></div>
+    </nav>
+
+    <script src="script.js"></script>
+</body>
+</html>
